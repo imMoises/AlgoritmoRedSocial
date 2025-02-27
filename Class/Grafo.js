@@ -1,4 +1,4 @@
-export class Graf {
+class Graf {
     constructor() {
         this.list = {};
     }
@@ -8,6 +8,14 @@ export class Graf {
     }
 
     addEdge(node1, node2) {
+        if (!this.list[node1]) {
+            console.warn(`El nodo ${node1} no existe. Asegúrate de agregarlo primero.`);
+            return; // Salir si el nodo no existe
+        }
+        if (!this.list[node2]) {
+            console.warn(`El nodo ${node2} no existe. Asegúrate de agregarlo primero.`);
+            return; // Salir si el nodo no existe
+        }
         this.list[node1].push(node2);
     }
 
@@ -15,3 +23,5 @@ export class Graf {
         console.log(this.list);
     }
 }
+
+module.exports = Graf;

@@ -1,4 +1,4 @@
-export class Etiquetas {
+class Etiquetas {
     constructor() {
         this.etiquetas = {};
     }
@@ -16,6 +16,7 @@ export class Etiquetas {
     }
 
     obtenerEtiquetaDominante(node, vecinos) {
+        
         const todasLasEtiquetas = [];
 
         
@@ -66,3 +67,5 @@ EtiquetaDominanteIgualEntreNodo() {
         return true;
     }
 }
+
+module.exports = Etiquetas;

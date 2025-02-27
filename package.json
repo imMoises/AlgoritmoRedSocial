@@ -1,0 +1,27 @@
+{
+  "name": "grafo-redsocial",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imMoises/AlgoritmoRedSocial.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imMoises/AlgoritmoRedSocial/issues"
+  },
+  "homepage": "https://github.com/imMoises/AlgoritmoRedSocial#readme",
+  "description": "",
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "js-xlsx": "^0.8.22",
+    "xlsx": "^0.18.5",
+    "xlsx-populate": "^1.21.0"
+  }
+}

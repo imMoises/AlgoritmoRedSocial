@@ -1,146 +1,44 @@
-import { Graf } from "./Class/Grafo.js";
-import { Etiquetas } from "./Class/Etiquetas.js";
+    const Graf  = require("./Class/Grafo.js");
+    const Etiquetas  = require("./Class/Etiquetas.js");
+    const xlsx = require("xlsx");
+
+const excelPath = './data.xlsx';
+
 
 const Instagram = new Graf();
-
-//Agregar todos los usuarios
-Instagram.addNode("Moisés");
-Instagram.addNode("Sergio");
-Instagram.addNode("Briceth");
-Instagram.addNode("Kevin A.");
-Instagram.addNode("Kevin M.");
-Instagram.addNode("Nyrlan");
-Instagram.addNode("Sara");
-Instagram.addNode("Jasis");
-Instagram.addNode("Sebastian");
-Instagram.addNode("Duman");
-Instagram.addNode("D'Alexandra");
-Instagram.addNode("Roger");
-Instagram.addNode("Nerieth");
-Instagram.addNode("Maria");
-Instagram.addNode("Domingo");
-Instagram.addNode("Robert");
-Instagram.addNode("Laura");
-
-//Moisés sigue a
-Instagram.addEdge("Moisés", "Nerieth");
-Instagram.addEdge("Moisés", "Sergio");
-Instagram.addEdge("Moisés", "Kevin A.");
-Instagram.addEdge("Moisés", "Kevin M.");
-Instagram.addEdge("Moisés", "Briceth");
-Instagram.addEdge("Moisés", "Sara");
-Instagram.addEdge("Moisés", "Sebastian");
-Instagram.addEdge("Moisés", "Maria");
-Instagram.addEdge("Moisés", "Roger");
-
-//Nerieth sigue a
-Instagram.addEdge("Nerieth", "Moisés");
-Instagram.addEdge("Nerieth", "Sergio");
-Instagram.addEdge("Nerieth", "Domingo");
-Instagram.addEdge("Nerieth", "Briceth");
-Instagram.addEdge("Nerieth", "Roger");
-Instagram.addEdge("Nerieth", "Laura");
-Instagram.addEdge("Nerieth", "Robert");
-
-//Sergio sigue a
-Instagram.addEdge("Sergio", "Moisés");
-Instagram.addEdge("Sergio", "Nerieth");
-Instagram.addEdge("Sergio", "Kevin M.");
-
-//Briceth sigue a
-Instagram.addEdge("Briceth", "Moisés");
-Instagram.addEdge("Briceth", "Nerieth");
-Instagram.addEdge("Briceth", "Sebastian");
-Instagram.addEdge("Briceth", "Kevin M.");
-
-//Kevin A. sigue a
-Instagram.addEdge("Kevin A.", "Moisés");
-
-//Kevin M. sigue a
-Instagram.addEdge("Kevin M.", "Moisés");
-Instagram.addEdge("Kevin M.", "Sergio");
-Instagram.addEdge("Kevin M.", "Nyrlan");
-
-//Nyrlan sigue a
-Instagram.addEdge("Nyrlan", "Kevin M.");
-
-//Sara sigue a
-Instagram.addEdge("Sara", "Moisés");
-Instagram.addEdge("Sara", "Jasis");
-
-//Jasis sigue a
-Instagram.addEdge("Jasis", "Sara");
-Instagram.addEdge("Jasis", "Maria");
-
-//Sebastian sigue a
-Instagram.addEdge("Sebastian", "Moisés");
-Instagram.addEdge("Sebastian", "Briceth");
-Instagram.addEdge("Sebastian", "Kevin M.");
-Instagram.addEdge("Sebastian", "Duman");
-Instagram.addEdge("Sebastian", "Jasis");
-Instagram.addEdge("Sebastian", "Roger");
-Instagram.addEdge("Sebastian", "Robert");
-
-//Duman sigue a
-Instagram.addEdge("Duman", "Sebastian");
-Instagram.addEdge("Duman", "D'Alexandra");
-
-//D'Alexandra sigue a
-Instagram.addEdge("D'Alexandra", "Duman");
-Instagram.addEdge("D'Alexandra", "Roger");
-
-//Roger sigue a
-Instagram.addEdge("Roger", "Moisés");
-Instagram.addEdge("Roger", "Nerieth");
-Instagram.addEdge("Roger", "Laura");
-Instagram.addEdge("Roger", "D'Alexandra");
-Instagram.addEdge("Roger", "Sebastian");
-
-//Laura sigue a
-Instagram.addEdge("Laura", "Nerieth");
-Instagram.addEdge("Laura", "Roger");
-
-//Robert sigue a
-Instagram.addEdge("Robert", "Nerieth");
-Instagram.addEdge("Robert", "Sebastian");
-
-//Maria sigue a
-Instagram.addEdge("Maria", "Moisés");
-Instagram.addEdge("Maria", "Jasis");
-
-//Domingo sigue a
-Instagram.addEdge("Domingo", "Nerieth");
-
-
-// Para mostrar el grafo
-Instagram.display();
-
 const etiquetas1 = new Etiquetas();
 const etiquetas2 = new Etiquetas();
 
-//agregando etiquetas
-etiquetas1.addEtiqueta("Moisés", "Programación");
-etiquetas1.addEtiqueta("Sergio", "Turismo");
-etiquetas1.addEtiqueta("Briceth", "Maquillaje");
-etiquetas1.addEtiqueta("Kevin A.", "Fotografia");
-etiquetas1.addEtiqueta("Kevin M.", "Anime");
-etiquetas1.addEtiqueta("Nyrlan", "Programación");
-etiquetas1.addEtiqueta("Sara", "Diseño");
-etiquetas1.addEtiqueta("Jasis", "Diseño");
-etiquetas1.addEtiqueta("Sebastian", "Toros");
-etiquetas1.addEtiqueta("Duman", "Deportes");
-etiquetas1.addEtiqueta("D'Alexandra", "Maquillaje");
-etiquetas1.addEtiqueta("Roger", "Futbol");
-etiquetas1.addEtiqueta("Laura", "Modelaje");
-etiquetas1.addEtiqueta("Robert", "Futbol");
-etiquetas1.addEtiqueta("Maria", "Diseño");
-etiquetas1.addEtiqueta("Domingo", "Baile");
-etiquetas1.addEtiqueta("Nerieth", "Peliculas");
+//Leer el archivo excel
+const workbook = xlsx.readFile(excelPath);
 
-etiquetas1.display();
-etiquetas2.display();
-//Asignar etiquetas dominantes a cada usuario
+//Leer las hojas
+const nodosSheet = workbook.Sheets['nodos']
+const relacionesSheet = workbook.Sheets['relaciones']
+const etiquetasSheet = workbook.Sheets['etiquetas']
 
+//Convertir las hojas a un array de objetos
+const nodos = xlsx.utils.sheet_to_json(nodosSheet)
+const relaciones = xlsx.utils.sheet_to_json(relacionesSheet)
+const etiquetas = xlsx.utils.sheet_to_json(etiquetasSheet)
+
+
+nodos.forEach((nodo)=>{
+    Instagram.addNode(nodo.nodos)
+})
+
+relaciones.forEach((relacion)=>{
+    
+    Instagram.addEdge(relacion.nombre, relacion.vecinos)
+})
+
+etiquetas.forEach((etiqueta)=>{ 
+    
+    etiquetas1.addEtiqueta(etiqueta.nodo, etiqueta.etiqueta)
+})
+
+Instagram.display()
+etiquetas1.display()
 
 const compararListaEtiquetas = (etiquetas1, etiquetas2) => { 
     const keys1 = Object.keys(etiquetas1.etiquetas);
@@ -152,7 +50,6 @@ const compararListaEtiquetas = (etiquetas1, etiquetas2) => {
     }
     return true;
  }
-
 
 
  const TrasladarEtiquetas = (etiquetas1, etiquetas2) => {
@@ -182,12 +79,12 @@ while(finCiclo !== true){
             console.log("El ciclo termina porque las etiquetas1 y etiquetas2 son iguales.")
             finCiclo = true;
         } else {
-            console.log("iteracion: ", contador)
+            
             TrasladarEtiquetas(etiquetas1, etiquetas2); 
         }
     }
 }
-
+console.log("Se estabiliza en la iteracion: ", contador)
 etiquetas1.display();
 etiquetas2.display();
 
